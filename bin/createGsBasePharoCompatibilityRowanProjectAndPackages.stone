@@ -33,7 +33,7 @@ USAGE
       $basename [--help | -h] [--debug | -D] --  -l -I <path-to-.topazini-file>
 
 DESCRIPTION
-  Install DataFrame in a stone.
+  Script to create the Rowan project metadata for the GsBasePharoCompatibility project ... 
 
 OPTIONS
   <stone-name>               Name of the GsDevKit_home stone. <stone-name> argument
@@ -46,38 +46,57 @@ OPTIONS
 
 EXAMPLES
   $basename -h -- rowan_361
-  $basename -h -- -l -I $GEMSTONE/data/.topazini
+  $basename -h -- -l -I .topazini
 
   $basename -D -- rowan_361
-  $basename -D -- -l -I $GEMSTONE/data/.topazini
+  $basename -D -- -l -I .topazini
 
   $basename -- rowan_361
-  $basename -- -l -I $GEMSTONE/data/.topazini
+  $basename -- -l -I .topazini
 -----
 %
-specs
-[
-RwLoadSpecificationV2 {
-	#projectName : 'GsBasePharoCompatibiity',
-	#projectSpecFile : 'rowan/project.ston',
-	#componentNames : [
-		'Core'
-	],
-	#customConditionalAttributes : [
-		'tests'
-	],
-	#platformProperties : {
-		'gemstone' : {
-			'allusers' : {
-				#defaultSymbolDictName : 'Globals'
-			}
-		}
-	},
-	#comment : ''
-}]
-%
 doit
-	self preDoitSpecLoad. "load the GsBasePharoCompatibiity project using spec"
-	self stdout nextPutAll: 'GsBasePharoCompatibiity project loaded'; lf.
-	^ System commit
+	| projectName componentName commonPackageNames definedProject testPackageNames testsComponent |
+
+	projectName := 'GsBasePharoCompatibility'.
+	componentName := 'Core'.
+	commonPackageNames := 	{
+			'GsBasePharoCompatibility-Core'.
+		}.
+	testPackageNames := { 
+			'GsBasePharoCompatibility-Tests'.
+		}.
+
+	('$ROWAN_PROJECTS_HOME' asFileReference / projectName / 'rowan') ensureDeleteAll.
+
+	definedProject := Rowan newProjectNamed: projectName.
+	definedProject
+		gemstoneSetDefaultSymbolDictNameTo: 'Globals';
+		repoType: #git;	
+		customConditionalAttributes: #('tests' );
+		packageFormat: 'tonel';
+		packageConvention: 'RowanHybrid';
+		yourself.
+	definedProject addTopLevelComponentNamed: componentName.
+	commonPackageNames do: [:packageName |
+			definedProject 
+				addPackageNamed: packageName
+				toComponentNamed: componentName ].
+
+	testsComponent := definedProject
+		addSimpleNestedComponentNamed: 'tests/tests' 
+		condition: 'tests' 
+		comment: ''.
+	testPackageNames do: [:packageName |
+			definedProject 
+				addPackageNamed: packageName
+				toComponentNamed: testsComponent name ].
+	definedProject 
+		addComponentNamed: testsComponent name 
+		toComponentNamed: componentName.
+
+	definedProject resolve	"create or attach to existing repository"
+		write.		"write to disk"
+
+	^ self noResult
 %
