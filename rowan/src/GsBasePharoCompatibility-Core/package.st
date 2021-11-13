@@ -1,1 +1,1 @@
-Package { #name : 'GsBasePharoCompatibiity-Core' }
+Package { #name : 'GsBasePharoCompatibility-Core' }

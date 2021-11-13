@@ -1,5 +1,5 @@
 RwLoadSpecificationV2 {
-	#projectName : 'GsBasePharoCompatibiity',
+	#projectName : 'GsBasePharoCompatibility',
 	#projectSpecFile : 'rowan/project.ston',
 	#componentNames : [
 		'Core'
