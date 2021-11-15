@@ -1,6 +1,6 @@
 Extension { #name : 'Collection' }
 
-{ #category : '*GsBasePharoCompatibiity-Core' }
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> associationsDo: aBlock [
 	"Evaluate aBlock for each of the receiver's elements (key/value 
 	associations).  If any non-association is within, the error is not caught now,
@@ -9,7 +9,7 @@ Collection >> associationsDo: aBlock [
 	self do: aBlock
 ]
 
-{ #category : '*GsBasePharoCompatibiity-Core' }
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> removeAll [
 	"Remove each element from the receiver and leave it empty.
 	ArrayedCollections cannot respond to this message.
@@ -20,7 +20,7 @@ Collection >> removeAll [
 	self removeAll: self
 ]
 
-{ #category : '*GsBasePharoCompatibiity-Core' }
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> withIndexDo: elementAndIndexBlock [
 	"Just like do: except that the iteration index supplies the second argument to the block"
 	"Support collection enumeration with a counter, even though not ordered"

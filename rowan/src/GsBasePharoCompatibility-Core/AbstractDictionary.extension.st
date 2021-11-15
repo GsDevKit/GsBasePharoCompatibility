@@ -1,6 +1,6 @@
 Extension { #name : 'AbstractDictionary' }
 
-{ #category : '*GsBasePharoCompatibiity-Core' }
+{ #category : '*GsBasePharoCompatibility-Core' }
 AbstractDictionary >> at: key ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	"Lookup the given key in the receiver. If it is present, answer the
 	value of evaluating the first block optionally with the value associated
@@ -11,7 +11,7 @@ AbstractDictionary >> at: key ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	^ anAbsentBlock value
 ]
 
-{ #category : '*GsBasePharoCompatibiity-Core' }
+{ #category : '*GsBasePharoCompatibility-Core' }
 AbstractDictionary >> removeAll [
 	"Override the inherited behavior since dictionaries don't like #removeAll:/"
 
