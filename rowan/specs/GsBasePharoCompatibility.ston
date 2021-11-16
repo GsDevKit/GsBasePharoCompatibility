@@ -1,5 +1,7 @@
 RwLoadSpecificationV2 {
 	#projectName : 'GsBasePharoCompatibility',
+	#gitUrl : 'git@github.com:GsDevKit/GsBasePharoCompatibility.git',
+	#revision : 'master',
 	#projectSpecFile : 'rowan/project.ston',
 	#componentNames : [
 		'Core'
