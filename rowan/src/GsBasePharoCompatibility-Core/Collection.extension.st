@@ -19,14 +19,3 @@ Collection >> removeAll [
 
 	self removeAll: self
 ]
-
-{ #category : '*GsBasePharoCompatibility-Core' }
-Collection >> withIndexDo: elementAndIndexBlock [
-	"Just like do: except that the iteration index supplies the second argument to the block"
-	"Support collection enumeration with a counter, even though not ordered"
-
-	^self doWithIndex: elementAndIndexBlock.
-"Arguably, #withIndexDo: is more correct and consistent than #doWithIndex.
- Consider #with:do: for an example of the with coming before the do.
- RJS 2021-11-08"
-]
