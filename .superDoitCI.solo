@@ -39,7 +39,7 @@ file:$GITHUB_WORKSPACE/rowan/specs/GsBasePharoCompatibility.ston
 %
 doit
 	| testSuite runner reporter projectName |
-	projectName := GsBasePharoCompatibility.
+	projectName := 'GsBasePharoCompatibility'.
 	self preDoitSpecLoad: [:loadSpec |
 		loadSpec projectName = projectName
 			ifTrue: [ 
