@@ -38,7 +38,7 @@ specUrls
 file:$GITHUB_WORKSPACE/rowan/specs/GsBasePharoCompatibility.ston
 %
 doit
-	| testSuite testResult |
+	| testSuite runner reporter |
 	self preDoitSpecLoad: [:loadSpec |
 		loadSpec projectName = 'GsBasePharoCompatibility'
 			ifTrue: [ 
