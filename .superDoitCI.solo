@@ -38,14 +38,15 @@ specUrls
 file:$GITHUB_WORKSPACE/rowan/specs/GsBasePharoCompatibility.ston
 %
 doit
-	| testSuite runner reporter |
+	| testSuite runner reporter projectName |
+	projectName := GsBasePharoCompatibility.
 	self preDoitSpecLoad: [:loadSpec |
-		loadSpec projectName = 'GsBasePharoCompatibility'
+		loadSpec projectName = projectName
 			ifTrue: [ 
 				loadSpec 
 					customConditionalAttributes: (loadSpec customConditionalAttributes, #('tests')) ].
 		loadSpec projectsHome: '$GITHUB_WORKSPACE/..' ].
-	testSuite := (Rowan projectNamed: 'GsBasePharoCompatibility') testSuite.
+	testSuite := (Rowan projectNamed: projectName) testSuite.
 	runner := (Rowan globalNamed: 'GsTestStatsCITestRunner') runSuite: testSuite.
 	reporter := (Rowan globalNamed: 'GsTestStatsCITestReporterStdout') report: runner.
 	runner isSuccessful
