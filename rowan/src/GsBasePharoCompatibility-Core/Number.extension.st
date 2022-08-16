@@ -25,6 +25,12 @@ Number >> hours [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Number >> isZero [
+
+	^self = 0.
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Number >> microsecond [
 	
  	^ self microseconds

@@ -23,11 +23,51 @@ GsBasePharoCompatibilityTest >> createTestDictionary [
 		yourself.
 ]
 
-{ #category : 'support' }
-GsBasePharoCompatibilityTest >> setUp [
+{ #category : 'Collection extensions' }
+GsBasePharoCompatibilityTest >> test_allButLastDo_ [
 
-	super setUp.
-	self createTestDictionary.
+	| sum |
+	sum := 0.
+	(1 to: 5) allButLastDo: [:each | sum := sum + each].
+	self
+		assert: sum
+		equals: 10.
+]
+
+{ #category : 'Integer extensions' }
+GsBasePharoCompatibilityTest >> test_asCharacterDigit [
+
+	self
+		assert: 0 asCharacterDigit
+		equals: $0.
+	self
+		assert: 9 asCharacterDigit
+		equals: $9.
+	self
+		assert: 10 asCharacterDigit
+		equals: $A.
+	self
+		assert: 35 asCharacterDigit
+		equals: $Z.
+]
+
+{ #category : 'Symbol extensions' }
+GsBasePharoCompatibilityTest >> test_asMutator [
+
+	self
+		assert: #value asMutator
+		equals: #value:.
+	self
+		assert: #value: asMutator
+		equals: #value:.
+
+	"It doesn't care about the structure of the symbol."
+	self
+		assert: #the:quick:brown:fox: asMutator
+		equals: #the:quick:brown:fox:.
+	self
+		assert: #~= asMutator
+		equals: #'~=:'.
 ]
 
 { #category : 'Collection extensions' }
@@ -49,12 +89,37 @@ GsBasePharoCompatibilityTest >> test_at_ifPresent_ifAbsent_ [
 		equals: #'absent'.
 ]
 
+{ #category : 'Collection extensions' }
+GsBasePharoCompatibilityTest >> test_copyFirst_ [
+
+	self
+		assert: ((1 to: 5) copyFirst: 3)
+		equals: #(1 2 3).
+]
+
 { #category : 'Date extensions' }
 GsBasePharoCompatibilityTest >> test_ddmmyyyy [
 
 	self
 		assert: self createTestDate ddmmyyyy
 		equals: '28/09/2018'.
+]
+
+{ #category : 'Integer extensions' }
+GsBasePharoCompatibilityTest >> test_digitAt_base_ [
+
+	self
+		assert: (42 digitAt: 2 base: 10)
+		equals: 4.
+	self
+		assert: (42 digitAt: 1 base: 10)
+		equals: 2.
+	self
+		assert: (16rFF digitAt: 1 base: 16)
+		equals: 15.
+	self
+		assert: (1 digitAt: 2 base: 10)
+		equals: 0.
 ]
 
 { #category : 'Date extensions' }
@@ -82,6 +147,36 @@ GsBasePharoCompatibilityTest >> test_hour_minute_second_ [
 		equals: '23:59:59'.
 ]
 
+{ #category : 'Symbol extensions' }
+GsBasePharoCompatibilityTest >> test_isUnary [
+
+	self
+		assert: #value isUnary
+		equals: true.
+	self
+		assert: #value: isUnary
+		equals: false.
+	self
+		assert: #~= isUnary
+		equals: false.
+
+	"It doesn't care about the structure of the symbol."
+	self
+		assert: #the:quick:brown:fox: isUnary
+		equals: false.
+	self
+		assert: #'~=:' isUnary
+		equals: false.
+]
+
+{ #category : 'Integer extensions' }
+GsBasePharoCompatibilityTest >> test_isZero [
+
+	self
+		assert: 0 isZero
+		equals: true.
+]
+
 { #category : 'AbstractDictionary extensions' }
 GsBasePharoCompatibilityTest >> test_keysSortedSafely [
 
@@ -101,6 +196,59 @@ GsBasePharoCompatibilityTest >> test_mmddyyyy [
 	self
 		assert: self createTestDate mmddyyyy
 		equals: '09/28/2018'.
+]
+
+{ #category : 'AbstractDictionary extensions' }
+GsBasePharoCompatibilityTest >> test_newFromPairs_ [
+
+	| testDictionary |
+	testDictionary := Dictionary newFromPairs: #('a' 123 'b' 234 'c' 345).
+	self
+		assert:
+			testDictionary keys asSortedCollection asArray
+		equals: #('a' 'b' 'c').
+	self
+		assert:
+			(testDictionary at: 'a')
+		equals: 123.
+	self
+		assert:
+			(testDictionary at: 'b')
+		equals: 234.
+	self
+		assert:
+			(testDictionary at: 'c')
+		equals: 345.
+]
+
+{ #category : 'Integer extensions' }
+GsBasePharoCompatibilityTest >> test_printOn_base_nDigits_ [
+
+	| stream |
+	stream := String new writeStream.
+
+	42 printOn: stream base: 10 nDigits: 4.
+	self
+		assert: stream contents
+		equals: '0042'.
+
+	stream reset.
+	1234 printOn: stream base: 10 nDigits: 4.
+	self
+		assert: stream contents
+		equals: '1234'.
+
+	stream reset.
+	12345 printOn: stream base: 10 nDigits: 4.
+	self
+		assert: stream contents
+		equals: '12345'.
+
+	stream reset.
+	16rABCD printOn: stream base: 16 nDigits: 4.
+	self
+		assert: stream contents
+		equals: 'ABCD'.
 ]
 
 { #category : 'Collection extensions' }
@@ -152,6 +300,43 @@ GsBasePharoCompatibilityTest >> test_yyyymmdd [
 	self
 		assert: self createTestDate yyyymmdd
 		equals: '2018-09-28'.
+]
+
+{ #category : 'Float extensions' }
+GsBasePharoCompatibilityTest >> testFloatExtensions [
+
+	self
+		assert: PlusInfinity isFinite
+		equals: false.
+	self
+		assert: PlusQuietNaN isFinite
+		equals: false.
+	self
+		assert: Float pi isFinite
+		equals: true.
+
+	self
+		assert: PlusInfinity isNaN
+		equals: false.
+	self
+		assert: PlusQuietNaN isNaN
+		equals: true.
+	self
+		assert: Float pi isNaN
+		equals: false.
+
+	self
+		assert: PlusInfinity isZero
+		equals: false.
+	self
+		assert: PlusQuietNaN isZero
+		equals: false.
+	self
+		assert: Float pi isZero
+		equals: false.
+	self
+		assert: 0.0d0 isZero
+		equals: true.
 ]
 
 { #category : 'Duration & Number extensions' }

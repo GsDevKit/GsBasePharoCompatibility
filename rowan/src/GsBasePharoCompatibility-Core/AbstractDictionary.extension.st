@@ -1,6 +1,17 @@
 Extension { #name : 'AbstractDictionary' }
 
 { #category : '*GsBasePharoCompatibility-Core' }
+AbstractDictionary class >> newFromPairs: aSequenceableCollection [
+  | newDictionary |
+  newDictionary := self new: (aSequenceableCollection size / 2) floor.
+  1 to: aSequenceableCollection size - 1 by: 2 do: [ :i | 
+    newDictionary
+      at: (aSequenceableCollection at: i)
+      put: (aSequenceableCollection at: i + 1) ].
+  ^ newDictionary
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 AbstractDictionary >> at: key ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	"Lookup the given key in the receiver. If it is present, answer the
 	value of evaluating the first block optionally with the value associated
