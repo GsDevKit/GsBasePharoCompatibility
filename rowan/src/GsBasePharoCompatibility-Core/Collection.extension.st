@@ -1,6 +1,12 @@
 Extension { #name : 'Collection' }
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Collection >> anyOne [
+
+	^self any
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> associationsDo: aBlock [
 	"Evaluate aBlock for each of the receiver's elements (key/value 
 	associations).  If any non-association is within, the error is not caught now,

@@ -34,6 +34,12 @@ GsBasePharoCompatibilityTest >> test_allButLastDo_ [
 		equals: 10.
 ]
 
+{ #category : 'TODO_DataFrame' }
+GsBasePharoCompatibilityTest >> test_as_ [
+	"Test #as:, #copySameAs:, and #newFrom: for the specific needs of DataFrames.
+	 More general/robust implementations left for another day."
+]
+
 { #category : 'Integer extensions' }
 GsBasePharoCompatibilityTest >> test_asCharacterDigit [
 
@@ -70,8 +76,50 @@ GsBasePharoCompatibilityTest >> test_asMutator [
 		equals: #'~=:'.
 ]
 
+{ #category : 'General extensions' }
+GsBasePharoCompatibilityTest >> test_assertEmpty_ [
+
+	self
+		shouldnt: [self assertEmpty: #()]
+		raise: Exception.
+	self
+		should: [self assertEmpty: #(a)]
+		raise: TestResult failure.
+]
+
+{ #category : 'General extensions' }
+GsBasePharoCompatibilityTest >> test_assertWithDescription_ [
+
+	self
+		shouldnt: [[true] assertWithDescription: 'Block should have evaluated true']
+		raise: Exception.
+	self
+		should: [[false] assertWithDescription: 'Block should have evaluated true']
+		raise: TestResult failure.
+]
+
 { #category : 'Collection extensions' }
 GsBasePharoCompatibilityTest >> test_associationsDo_ [
+]
+
+{ #category : 'General extensions' }
+GsBasePharoCompatibilityTest >> test_asUnsignedInteger [
+
+	self
+		assert: 'abc' asUnsignedInteger
+		equals: nil.
+	self
+		assert: '' asUnsignedInteger
+		equals: nil.
+	self
+		assert: 'abc123' asUnsignedInteger
+		equals: 123.
+	self
+		assert: '456' asUnsignedInteger
+		equals: 456.
+	self
+		assert: '0' asUnsignedInteger
+		equals: 0.
 ]
 
 { #category : 'AbstractDictionary extensions' }
@@ -175,6 +223,14 @@ GsBasePharoCompatibilityTest >> test_isZero [
 	self
 		assert: 0 isZero
 		equals: true.
+]
+
+{ #category : 'General extensions' }
+GsBasePharoCompatibilityTest >> test_key_value_ [
+
+	self
+		assert: (Association key: 1 value: 'x')
+		equals: (1 -> 'x')
 ]
 
 { #category : 'AbstractDictionary extensions' }
@@ -284,6 +340,14 @@ GsBasePharoCompatibilityTest >> test_withAllSubclasses [
 			{Integer.
 			LargeInteger.
 			SmallInteger}.
+]
+
+{ #category : 'Collection extensions' }
+GsBasePharoCompatibilityTest >> test_withIndexCollect_ [
+
+	self
+		assert: (#(10 20 30) withIndexCollect: [:each :index | each + (index * 2)])
+		equals: #(12 24 36)
 ]
 
 { #category : 'SequenceableCollection extensions' }

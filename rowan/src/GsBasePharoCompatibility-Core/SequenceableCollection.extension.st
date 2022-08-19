@@ -20,6 +20,22 @@ SequenceableCollection >> copyFirst: n [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+SequenceableCollection >> withIndexCollect: elementAndIndexBlock [ 
+	"Just like with:collect: except that the iteration index supplies the second argument to the block."
+	
+	"(#(10 20 30) withIndexCollect: [:each :index | each + (index * 2)]) >>> #(12 24 36)"
+	
+	| result |
+	result := self species new: self size.
+	1 to: self size do:
+		[:index | result at: index put:
+		(elementAndIndexBlock
+			value: (self at: index)
+			value: index)].
+	^ result
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 SequenceableCollection >> writeStream [
 
 "Returns a WriteStream on the receiver."
