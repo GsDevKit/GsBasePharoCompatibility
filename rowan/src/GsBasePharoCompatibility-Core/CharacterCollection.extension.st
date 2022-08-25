@@ -50,3 +50,10 @@ CharacterCollection >> copySameFrom: otherObject [
 	1 to: (self basicSize min: otherObject basicSize) do: [:i |
 		self basicAt: i put: (otherObject basicAt: i) asInteger].
 ]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+CharacterCollection >> includesSubstring: aCharacterCollection [
+	"Not quite identical to Pharo's implementation. This one ignores case."
+
+	^ self includesString: aCharacterCollection
+]
