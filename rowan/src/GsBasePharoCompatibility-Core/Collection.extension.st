@@ -16,6 +16,18 @@ Collection >> associationsDo: aBlock [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Collection >> count: aBlock [ 
+	"Evaluate aBlock with each of the receiver's elements as the argument.  
+	Answer the number of elements that answered true."
+	"(#(1 2 3 4) count: [ :each | each even ]) >>> 2"
+
+	| sum |
+	sum := 0.
+	self do: [:each | (aBlock value: each) ifTrue: [sum := sum + 1]].
+	^ sum
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> removeAll [
 	"Remove each element from the receiver and leave it empty.
 	ArrayedCollections cannot respond to this message.

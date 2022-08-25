@@ -137,12 +137,41 @@ GsBasePharoCompatibilityTest >> test_at_ifPresent_ifAbsent_ [
 		equals: #'absent'.
 ]
 
+{ #category : 'String extensions' }
+GsBasePharoCompatibilityTest >> test_capitalized [
+
+	self
+		assert: 'abcdef' capitalized
+		equals: 'Abcdef'.
+	self
+		assert: 'ABCDEF' capitalized
+		equals: 'ABCDEF'.
+
+	self
+		assert: #abcdef capitalized
+		equals: #Abcdef.
+	self
+		assert: #ABCDEF capitalized
+		equals: #ABCDEF.
+]
+
 { #category : 'Collection extensions' }
 GsBasePharoCompatibilityTest >> test_copyFirst_ [
 
 	self
 		assert: ((1 to: 5) copyFirst: 3)
 		equals: #(1 2 3).
+]
+
+{ #category : 'Collection extensions' }
+GsBasePharoCompatibilityTest >> test_count_ [
+
+	self
+		assert: ((1 to: 10) count: [:each | each odd])
+		equals: 5.
+	self
+		assert: ((1 to: 10) asSet count: [:each | each odd])
+		equals: 5.
 ]
 
 { #category : 'Date extensions' }
@@ -326,6 +355,25 @@ GsBasePharoCompatibilityTest >> test_removeAll_Dictionary [
 	self
 		assert: testDictionary removeAll
 		equals: Dictionary new.
+]
+
+{ #category : 'Date extensions' }
+GsBasePharoCompatibilityTest >> test_String_asDate [
+
+	self
+		assert: self createTestDate yyyymmdd asDate
+		equals: self createTestDate
+]
+
+{ #category : 'Symbol extensions' }
+GsBasePharoCompatibilityTest >> test_value_ [
+
+	self
+		assert: ((1 to: 10) count: #odd)
+		equals: 5.
+	self
+		assert: ((1 to: 10) asSet count: #odd)
+		equals: 5.
 ]
 
 { #category : 'Class extensions' }

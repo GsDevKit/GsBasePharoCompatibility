@@ -8,3 +8,9 @@ BlockClosure >> assertWithDescription: aStringOrABlock [
 	value := aStringOrABlock value.
 	TestResult failure signal: value
 ]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+BlockClosure >> isBlock [
+
+	^ true
+]

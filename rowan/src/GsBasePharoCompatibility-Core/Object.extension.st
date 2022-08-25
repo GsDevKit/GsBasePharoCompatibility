@@ -34,6 +34,12 @@ Object >> copySameFrom: otherObject [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Object >> isBlock [
+
+	^ false
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Object >> isNotNil [
 	"Pharo implements both, so we'll alias it."
 

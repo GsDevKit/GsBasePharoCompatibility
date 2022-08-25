@@ -9,7 +9,19 @@ Symbol >> asMutator [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Symbol >> capitalized [
+
+	^ self asString capitalized asSymbol
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Symbol >> isUnary [
 
 	^self argumentCount = 0
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Symbol >> value: anObject [
+
+	^anObject perform: self.
 ]
