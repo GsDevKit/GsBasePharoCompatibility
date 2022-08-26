@@ -21,6 +21,12 @@ Integer >> digitAt: anExponent base: base [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Integer >> isInteger [
+
+	^ true
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Integer >> printOn: aWriteStream base: baseInteger nDigits: digitsInteger [
 	"There is no restriction on the size of the receiver. If it encodes
 	 into a string larger than the specified number of digits, the entire

@@ -40,6 +40,12 @@ Object >> isBlock [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Object >> isInteger [
+
+	^ false
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Object >> isNotNil [
 	"Pharo implements both, so we'll alias it."
 
