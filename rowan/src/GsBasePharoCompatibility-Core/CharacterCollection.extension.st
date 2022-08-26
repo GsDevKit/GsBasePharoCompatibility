@@ -23,6 +23,19 @@ CharacterCollection >> asDate [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+CharacterCollection >> asDateAndTime [
+
+	^DateAndTime fromString: self.
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+CharacterCollection >> asTime [
+	"GemStone/S allows only HH:MM:SS for times."
+
+	^Time fromString: self
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 CharacterCollection >> asUnsignedInteger [
 	"Returns the first integer it can find or nil."
 	| start stream |
