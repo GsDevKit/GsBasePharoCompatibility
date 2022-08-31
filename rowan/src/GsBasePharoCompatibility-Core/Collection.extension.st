@@ -28,6 +28,19 @@ Collection >> count: aBlock [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Collection >> emptyCheck [
+
+	self isEmpty ifTrue: [self errorEmptyCollection]
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Collection >> errorEmptyCollection [
+	"Signal a CollectionIsEmpty exception"
+	
+	CollectionIsEmpty signalWith: self
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> removeAll [
 	"Remove each element from the receiver and leave it empty.
 	ArrayedCollections cannot respond to this message.

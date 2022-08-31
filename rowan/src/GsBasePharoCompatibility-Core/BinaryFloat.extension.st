@@ -8,6 +8,12 @@ BinaryFloat >> isFinite [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+BinaryFloat >> isFloat [
+
+	^ true
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 BinaryFloat >> isNaN [
 
 	^ self _isNaN

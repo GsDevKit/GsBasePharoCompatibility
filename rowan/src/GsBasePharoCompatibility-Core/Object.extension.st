@@ -40,6 +40,18 @@ Object >> isBlock [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Object >> isFloat [
+
+	^ false
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Object >> isFraction [
+
+	^ false
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Object >> isInteger [
 
 	^ false
@@ -50,4 +62,10 @@ Object >> isNotNil [
 	"Pharo implements both, so we'll alias it."
 
 	^self notNil
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Object >> isScaledDecimal [
+
+	^ false
 ]
