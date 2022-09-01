@@ -40,6 +40,18 @@ Object >> isBlock [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Object >> isDecimalFloat [
+
+	^ false
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Object >> isFixedPoint [
+
+	^ false
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Object >> isFloat [
 
 	^ false
