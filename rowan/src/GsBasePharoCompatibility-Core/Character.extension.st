@@ -1,7 +1,7 @@
 Extension { #name : 'Character' }
 
 { #category : '*GsBasePharoCompatibility-Core' }
-Character class >> escape [
+Character class >> HACKEDOUTescape [
 	"Answer the ASCII ESC character"
 
 	^Esc
