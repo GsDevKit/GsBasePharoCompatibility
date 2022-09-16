@@ -199,6 +199,14 @@ GsBasePharoCompatibilityTest >> test_digitAt_base_ [
 		equals: 0.
 ]
 
+{ #category : 'Collection extensions' }
+GsBasePharoCompatibilityTest >> test_errorNotFound_ [
+
+	self
+		should: [#() errorNotFound: nil]
+		raise: LookupError.
+]
+
 { #category : 'Date extensions' }
 GsBasePharoCompatibilityTest >> test_fromISOString_ [
 
@@ -275,12 +283,55 @@ GsBasePharoCompatibilityTest >> test_keysSortedSafely [
 		equals: #().
 ]
 
+{ #category : 'String extensions' }
+GsBasePharoCompatibilityTest >> test_lines [
+
+	| sample |
+	sample := 'line 1
+line 2
+line 3'.
+
+	self
+		assert: sample lines
+		equals: #('line 1' 'line 2' 'line 3').
+]
+
+{ #category : 'Integer extensions' }
+GsBasePharoCompatibilityTest >> test_log [
+
+	self
+		assert: 10 log class
+		equals: SmallDouble.
+	self
+		assert: 10 log asFraction
+		equals: 1.
+	self
+		assert: 100 log asFraction
+		equals: 2.
+	self
+		assert: 1000 log asFraction
+		equals: 6755399441055743/2251799813685248.	"Slight precision loss from division."
+
+]
+
 { #category : 'Date extensions' }
 GsBasePharoCompatibilityTest >> test_mmddyyyy [
 
 	self
 		assert: self createTestDate mmddyyyy
 		equals: '09/28/2018'.
+]
+
+{ #category : 'AbstractDictionary extensions' }
+GsBasePharoCompatibilityTest >> test_newFromKeys_andValues_ [
+
+	| testDictionary actual |
+	testDictionary := self createTestDictionary.
+	actual := Dictionary newFromKeys: #('a' 'b' 'c' 'aa' 'bb' 'cc') andValues: #(123 234 345 123123 234234 345345).
+
+	self
+		assert: actual
+		equals: testDictionary.
 ]
 
 { #category : 'AbstractDictionary extensions' }
@@ -336,6 +387,28 @@ GsBasePharoCompatibilityTest >> test_printOn_base_nDigits_ [
 		equals: 'ABCD'.
 ]
 
+{ #category : 'General extensions' }
+GsBasePharoCompatibilityTest >> test_readInto_startingAt_count_ [
+
+	| target |
+
+	target := '123456' copy.
+	self
+		assert: ('abcdef' readStream readInto: target startingAt: 2 count: 3)
+		equals: 3.
+	self
+		assert: target
+		equals: '1abc56'.
+
+	target := (1 to: 6) asArray.
+	self
+		assert: ('abcdef' readStream readInto: target startingAt: 2 count: 3)
+		equals: 3.
+	self
+		assert: target
+		equals: #(1 $a $b $c 5 6).
+]
+
 { #category : 'Collection extensions' }
 GsBasePharoCompatibilityTest >> test_removeAll [
 
@@ -355,6 +428,17 @@ GsBasePharoCompatibilityTest >> test_removeAll_Dictionary [
 	self
 		assert: testDictionary removeAll
 		equals: Dictionary new.
+]
+
+{ #category : 'Collection extensions' }
+GsBasePharoCompatibilityTest >> test_select_thenCollect_ [
+
+	| actual |
+	actual := (1 to: 5) select: [:each | each even] thenCollect: [:each | each * 2].
+
+	self
+		assert: actual
+		equals: #(4 8).
 ]
 
 { #category : 'Date extensions' }

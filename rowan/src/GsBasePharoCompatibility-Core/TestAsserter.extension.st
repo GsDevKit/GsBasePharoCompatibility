@@ -1,14 +1,28 @@
 Extension { #name : 'TestAsserter' }
 
 { #category : '*GsBasePharoCompatibility-Core' }
-TestAsserter >> assert: aFloat closeTo: anotherFloat [
-	"Fix any implementations which do not give equal results.
-	 Don't use sloppy tests.
-	 And, especially don't let broken implementations get away with it.
-	 Currently, no ported senders of this method. KEEP it so that we
-	 retain the explanation above for future ports."
+TestAsserter class >> defaultPrecisionsForCloseToComparison [
+	"This number comes from the one used in the Pharo Float>>#closeTo: implementation.
+	 In GemStone, I am trying to avoid adding that to Float!"
 
-	self assert: aFloat equals: anotherFloat
+	^ 0.0001
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+TestAsserter >> assert: actualNumber closeTo: expectedNumber [
+	"Tell whether the actualNumber and expectedNumber ARE close to each others with a margin of
+	 the default precision (see class-side method #defaultPrecisionsForCloseToComparison).
+	"
+	self assert: actualNumber closeTo: expectedNumber precision: self class defaultPrecisionsForCloseToComparison
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+TestAsserter >> assert: actualNumber closeTo: expectedNumber precision: epsilon [
+	"Tell whether the actualNumber and expectedNumber ARE close to each others with a margin of epsilon."
+
+	^ self
+		assert: (actualNumber closeTo: expectedNumber precision: epsilon)
+		description: actualNumber printString, ' not close enough to ', expectedNumber printString.
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }

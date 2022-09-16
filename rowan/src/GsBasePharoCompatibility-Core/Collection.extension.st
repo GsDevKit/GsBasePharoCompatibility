@@ -41,6 +41,13 @@ Collection >> errorEmptyCollection [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Collection >> errorNotFound: anObject [
+	"Raise the GemStone/S equivalent to Pharo's NotFound exception."
+
+	LookupError signal: anObject printString , ' not found'
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Collection >> removeAll [
 	"Remove each element from the receiver and leave it empty.
 	ArrayedCollections cannot respond to this message.
@@ -49,4 +56,11 @@ Collection >> removeAll [
 	2) the subclass provides a much faster way than iterating through each element"
 
 	self removeAll: self
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Collection >> select: selectBlock thenCollect: collectBlock [
+	"Utility method to improve readability."
+
+	^ (self select: selectBlock) collect: collectBlock
 ]

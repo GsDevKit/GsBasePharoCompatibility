@@ -70,3 +70,18 @@ CharacterCollection >> includesSubstring: aCharacterCollection [
 
 	^ self includesString: aCharacterCollection
 ]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+CharacterCollection >> lines [
+    "Answer an array of lines composing this receiver without the line ending delimiters"
+    ^Array new: (self size // 60 max: 16)
+            streamContents: [:lines | self linesDo: [:aLine | lines nextPut: aLine]]
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+CharacterCollection >> linesDo: aBlock [
+	"Execute aBlock with each line in this string. The terminating line delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock"
+
+	self lineIndicesDo: [:start :endWithoutDelimiters :end |
+		aBlock value: (self copyFrom: start to: endWithoutDelimiters)]
+]

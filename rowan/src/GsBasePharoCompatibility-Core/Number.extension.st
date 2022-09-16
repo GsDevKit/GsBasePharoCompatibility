@@ -1,6 +1,30 @@
 Extension { #name : 'Number' }
 
 { #category : '*GsBasePharoCompatibility-Core' }
+Number >> closeTo: num [
+ 	"Tell whether the receiver and argument are close to one another.
+	 Question your reliance on imprecision!"
+
+	num isFloat
+		ifTrue: [ ^ num closeTo: self asFloat ].
+	^ [ self = num ]
+		on: Error
+		do: [ :ex | false ]
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Number >> closeTo: num precision: aPrecision [
+	"Answer whether the receiver and argument are close to each other given a precision.
+	 Question your reliance on imprecision!"
+
+	num isFloat
+		ifTrue: [ ^ num closeTo: self asFloat precision: aPrecision ].
+	^ [ self = num ]
+		on: Error
+		do: [ :ex | false ]
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 Number >> day [
  
  	^ self days
@@ -28,6 +52,12 @@ Number >> hours [
 Number >> isZero [
 
 	^self = 0.
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
+Number >> log [
+
+	^self log: 10.
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }

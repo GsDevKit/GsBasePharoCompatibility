@@ -20,6 +20,19 @@ SequenceableCollection >> copyFirst: n [
 ]
 
 { #category : '*GsBasePharoCompatibility-Core' }
+SequenceableCollection >> select: selectBlock thenCollect: collectBlock [
+	"Optimized version of Collection>>#select:thenCollect:"
+	
+	"(#(1 2 3 4)  select: [:each | each > 2 ] thenCollect: [:each | each + 10 ]) >>> #(13 14)"
+	
+	| each |
+	^ self species new: self size streamContents: [ :stream|
+		1 to: self size do: [ :index |
+			(selectBlock value: (each := self at: index))
+				ifTrue: [ stream nextPut: (collectBlock value: each) ]]]
+]
+
+{ #category : '*GsBasePharoCompatibility-Core' }
 SequenceableCollection >> withIndexCollect: elementAndIndexBlock [ 
 	"Just like with:collect: except that the iteration index supplies the second argument to the block."
 	
